@@ -9,7 +9,8 @@ from .models import DeliveryAgent, Customer
 from django.contrib.auth.decorators import user_passes_test
 from django.http import JsonResponse
 import uuid
-
+import random
+import string
 
 @user_passes_test(lambda u: u.is_superuser)
 def add_delivery_agent(request):
@@ -23,7 +24,13 @@ def add_delivery_agent(request):
             password = User.objects.make_random_password()
             username = generate_unique_username()
             phone_number=request.POST['phone_number']
-            print("__________", username)
+            print("entry1")
+            # Check if the email is unique
+            if User.objects.filter(email=email).exists():
+                # Handle the case where the email is not unique (you can raise an exception, redirect, or return an error response)
+                print("Error: Email already exists")
+                # Handle the error (e.g., return a response to the user)
+                return HttpResponse("Error: Email already exists")
             user = User.objects.create_user(username, email, password)
             DeliveryAgent.objects.create(user=user)
             delivery_agent_user = DeliveryAgent.objects.get(user=user.id)
@@ -32,18 +39,22 @@ def add_delivery_agent(request):
             delivery_agent_user.user.last_name = last_name
             delivery_agent_user.user.phone_number = phone_number
             delivery_agent_user.user.save()
-            
-            send_mail('Welcome to the system', f'Your username: {username}\nYour password: {password}', 'from@example.com', [email])
+            print("entry2")
+            try:
+                send_mail('Welcome to the system', f'Your username: {username}\nYour password: {password}', 'from@example.com', [email])
+            except Exception as e :
+                print("entry3", e)
             return JsonResponse({'message': 'Delivery agent added successfully!'})
         except Exception as  e :
             print("error", e)
             return JsonResponse({'message': 'Delivery agent registartion failed!'})
         
 def generate_unique_username():
-    # Generate a unique username using uuid
-    unique_id = str(uuid.uuid4().hex)[:30]
-    username = f'user_{unique_id}'
-    return username
+    # Generate a unique username using uuid and random characters
+    unique_id = str(uuid.uuid4().hex)[:6]  # Using the first 6 characters of the UUID
+    random_chars = ''.join(random.choice(string.ascii_letters) for _ in range(2))
+    username = f'{random_chars.upper()}{unique_id[:2]}'
+    return username[:8] 
 
 @user_passes_test(lambda u: u.is_superuser)
 def update_delivery_agent(request, agent_id):
