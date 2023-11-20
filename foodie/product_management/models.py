@@ -1,3 +1,11 @@
+from django.shortcuts import render
 from django.db import models
 
-# Create your models here.
+class FoodProduct(models.Model):
+    name = models.CharField(max_length=255)
+    code = models.CharField(max_length=255,unique=True)
+    price = models.DecimalField(max_digits=10, decimal_places=2)
+
+    def __str__(self):
+        return self.name
+

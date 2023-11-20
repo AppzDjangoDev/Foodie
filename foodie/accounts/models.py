@@ -4,6 +4,7 @@ from django.db import models
 class User(AbstractUser):
     phone_number = models.CharField(max_length=12, null=True)
     is_blocked = models.BooleanField(default=False)
+    email = models.EmailField(blank=True, unique=True)
 
     REQUIRED_FIELDS = []
 
