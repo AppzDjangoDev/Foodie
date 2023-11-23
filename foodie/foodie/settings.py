@@ -33,6 +33,8 @@ INSTALLED_APPS = [
     'product_management',
     'order_management',
     'rest_framework',
+    'dj_rest_auth',
+    'rest_framework.authtoken',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -40,6 +42,14 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 ]
+
+REST_USE_JWT = True
+
+DEFAULT_AUTHENTICATION_CLASSES =  (
+  'rest_framework.authentication.SessionAuthentication',
+  'rest_framework.authentication.BasicAuthentication',
+  'rest_framework_simplejwt.authentication.JWTAuthentication',
+)
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -155,4 +165,4 @@ EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'appzappz13@gmail.com'
 EMAIL_HOST_PASSWORD = 'iqwj spav uoye mxds'
-# 
+

@@ -1,10 +1,8 @@
-
+# urls.py
 from django.urls import path
-from .views import FoodProductAPIView
-from . import views
-from django.urls import path
+from .views import FoodProductListCreateView, FoodProductRetrieveUpdateDestroyView
 
 urlpatterns = [
-    path('products/', FoodProductAPIView.as_view(), name='foodproduct_list'),
-    path('products/<int:code>/', FoodProductAPIView.as_view(), name='foodproduct_detail'),
+    path('products/', FoodProductListCreateView.as_view(), name='product-list-create'),
+    path('products/<str:product_code>/', FoodProductRetrieveUpdateDestroyView.as_view(), name='product-retrieve-update-destroy'),
 ]

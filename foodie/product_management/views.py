@@ -1,72 +1,56 @@
-from django.shortcuts import get_object_or_404
-from django.http import JsonResponse
-from django.views import View
-from django.views.decorators.csrf import csrf_exempt
-from django.utils.decorators import method_decorator
-
+import random
+import string
+from rest_framework import status
+from rest_framework import generics
+from rest_framework.response import Response
 from .models import FoodProduct
 from .serializers import FoodProductSerializer
 
-@method_decorator(csrf_exempt, name='dispatch')
-class FoodProductAPIView(View):
-    http_method_names = ['get', 'post', 'put', 'delete']
+def generate_unique_code():
+    while True:
+        # Generate the remaining six characters (numbers)
+        code_gen = ''.join(random.choices(string.ascii_uppercase, k=6))
+        # Check if the product_code already exists in the FoodProduct table
+        if not FoodProduct.objects.filter(product_code=code_gen).exists():
+            return code_gen
 
-    def dispatch(self, request, *args, **kwargs):
-        return super().dispatch(request, *args, **kwargs)
+class FoodProductListCreateView(generics.ListCreateAPIView):
+    queryset = FoodProduct.objects.all()
+    serializer_class = FoodProductSerializer
 
-    def get(self, request, code=None):
-        if code:
-            food_product = get_object_or_404(FoodProduct, code=code)
-            serializer = FoodProductSerializer(food_product)
-        else:
-            food_products = FoodProduct.objects.all()
-            serializer = FoodProductSerializer(food_products, many=True)
-        return JsonResponse(serializer.data, safe=False)
+    def create(self, request, *args, **kwargs):
+        # Add logic to generate a unique 6-digit code for the new product
+        product_code = generate_unique_code()
+        print("product_code", product_code)
+        # Modify request.data directly to set the product code
+        request.data['product_code'] = product_code
+        return super().create(request, *args, **kwargs)
 
-    def post(self, request):
-        # Ensure that request.POST is converted to a dictionary
-        data = dict(request.POST)
-        print("datadatadata", data)
-        # Now you can access values using data.get()
-        name = data['name'][0]
-        code = str(data['code'][0])
-        price = data['price'][0]
-        print("priceprice", code)
-        # Convert 'price' to a float (adjust as needed based on your requirements)
-        try:
-            price = float(price)
-        except ValueError:
-            return JsonResponse({'error': 'Invalid price value'}, status=400)
-        # Add other data validations as needed
-        serializer = FoodProductSerializer(data={'name': name,'code': code,  'price': price })
-        if serializer.is_valid():
-            serializer.save()
-            return JsonResponse({'message': 'Food product added successfully','data': serializer.data}, status=201)
-        return JsonResponse(serializer.errors, status=400)
+
+class FoodProductRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = FoodProduct.objects.all()
+    serializer_class = FoodProductSerializer
+    lookup_field = 'product_code'
+    def update(self, request, *args, **kwargs):
+        instance = self.get_object()
+        # Get the fields to update from the request data
+        fields_to_update = request.data.keys()
+        # Ensure that the fields to update are valid fields in the serializer
+        valid_fields = set(FoodProductSerializer().get_fields().keys())
+        invalid_fields = set(fields_to_update) - valid_fields
+        if invalid_fields:
+            return Response({"error": f"Invalid fields: {', '.join(invalid_fields)}"}, status=status.HTTP_400_BAD_REQUEST)
+        # Perform partial updates for each field
+        for field in fields_to_update:
+            value = request.data.get(field)
+            setattr(instance, field, value)
+        # Save the updated instance
+        instance.save()
+        # Return the updated data
+        serializer = self.get_serializer(instance)
+        return Response(serializer.data)
     
-    def put(self, request, code):
-        product = get_object_or_404(FoodProduct, code=code)
-        # Use request.POST to access x-www-form-urlencoded data
-        name = request.POST.get('name', '')
-        price = request.POST.get('price', '')
-        print("namename", name, "priceprice", price)
-        try:
-            # Update the FoodProduct instance
-            if name:
-                product.name = name
-            if price:
-                product.price = price
-            product.save()
-
-            # Optionally, use a serializer to respond with the updated data
-            serializer = FoodProductSerializer(product)
-            return JsonResponse(serializer.data)
-
-        except Exception as error:
-            print("error", error)
-            return JsonResponse({'error': str(error)}, status=500)
-
-    def delete(self, request, code):
-        food_product = get_object_or_404(FoodProduct, code=code)
-        food_product.delete()
-        return JsonResponse({'message': 'Food product deleted successfully'}, status=204)
+    def destroy(self, request, *args, **kwargs):
+        instance = self.get_object()
+        instance.delete()
+        return Response({"message": "Product deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
