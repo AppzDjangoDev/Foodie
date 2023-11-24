@@ -5,6 +5,9 @@ from rest_framework import generics
 from rest_framework.response import Response
 from .models import FoodProduct
 from .serializers import FoodProductSerializer
+from rest_framework.permissions import IsAuthenticated
+
+
 
 def generate_unique_code():
     while True:
@@ -14,9 +17,11 @@ def generate_unique_code():
         if not FoodProduct.objects.filter(product_code=code_gen).exists():
             return code_gen
 
+
 class FoodProductListCreateView(generics.ListCreateAPIView):
     queryset = FoodProduct.objects.all()
     serializer_class = FoodProductSerializer
+    permission_classes = [IsAuthenticated]
 
     def create(self, request, *args, **kwargs):
         # Add logic to generate a unique 6-digit code for the new product
@@ -30,6 +35,8 @@ class FoodProductRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView
     queryset = FoodProduct.objects.all()
     serializer_class = FoodProductSerializer
     lookup_field = 'product_code'
+    permission_classes = [IsAuthenticated]
+
     def update(self, request, *args, **kwargs):
         instance = self.get_object()
         # Get the fields to update from the request data
@@ -48,7 +55,7 @@ class FoodProductRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView
         # Return the updated data
         serializer = self.get_serializer(instance)
         return Response(serializer.data)
-    
+
     def destroy(self, request, *args, **kwargs):
         instance = self.get_object()
         instance.delete()
