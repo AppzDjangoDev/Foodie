@@ -33,7 +33,6 @@ INSTALLED_APPS = [
     'product_management',
     'order_management',
     'rest_framework',
-    'dj_rest_auth',
     'rest_framework.authtoken',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -43,13 +42,15 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 ]
 
-REST_USE_JWT = True
+REST_FRAMEWORK = {
+   'DEFAULT_AUTHENTICATION_CLASSES': (
+       'rest_framework.authentication.TokenAuthentication',
+   ),
+   'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAdminUser'
+   ),
+}
 
-DEFAULT_AUTHENTICATION_CLASSES =  (
-  'rest_framework.authentication.SessionAuthentication',
-  'rest_framework.authentication.BasicAuthentication',
-  'rest_framework_simplejwt.authentication.JWTAuthentication',
-)
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

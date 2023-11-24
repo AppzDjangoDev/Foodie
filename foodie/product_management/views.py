@@ -21,7 +21,6 @@ class FoodProductListCreateView(generics.ListCreateAPIView):
     def create(self, request, *args, **kwargs):
         # Add logic to generate a unique 6-digit code for the new product
         product_code = generate_unique_code()
-        print("product_code", product_code)
         # Modify request.data directly to set the product code
         request.data['product_code'] = product_code
         return super().create(request, *args, **kwargs)
