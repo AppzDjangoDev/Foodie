@@ -15,7 +15,7 @@ from rest_framework.permissions import IsAdminUser
 def generate_order_ref_id():
     latest_order = Order.objects.order_by('-order_ref_id').first()
     if latest_order:
-        order_ref_gen=latest_order.order_ref_id+1
+        order_ref_gen=int(latest_order.order_ref_id)+1
     else:
         order_ref_gen=1000
     return order_ref_gen
@@ -49,46 +49,50 @@ class OrderListCreateView(generics.ListCreateAPIView):
         return Response(serializer.data)
 
     def create(self, request, *args, **kwargs):
-        try:
-            user = self.request.user
-            customer = Customer.objects.get(user=user)
+        # try:
+        user = self.request.user
+        customer = Customer.objects.get(user=user)
 
-            serializer = self.get_serializer(data=request.data)
-            serializer.is_valid(raise_exception=True)
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
 
-            order_data = serializer.validated_data
-            product_items = order_data['product_items']
-            payment_mode = order_data['payment_mode']
+        order_data = serializer.validated_data
+        product_items = order_data['product_items']
+        payment_mode = order_data['payment_mode']
 
-            unique_order_ref_id = generate_order_ref_id()
-            order = Order.objects.create(customer_name=customer, order_ref_id=unique_order_ref_id, order_status='pending', payment_mode=payment_mode)
+        unique_order_ref_id = generate_order_ref_id()
+        order = Order.objects.create(customer_name=customer, order_ref_id=unique_order_ref_id, order_status='pending', payment_mode=payment_mode)
 
-            total_price = 0
-            total_charges = 0
+        total_price = 0
+        total_charges = 0
 
-            for item_data in product_items:
-                product_code = item_data['product_code']
-                quantity = item_data['quantity']
-                product = FoodProduct.objects.get(product_code=product_code)
+        print("pppppppppppppppp")
 
-                item_charge = product.product_charge
-                total_charges += item_charge
+        for item_data in product_items:
 
-                item_price = product.price * quantity
-                total_price += item_price
+            print("item_data", item_data)
+            product_code = item_data['product_code']
+            quantity = item_data['quantity']
+            product = FoodProduct.objects.get(product_code=product_code)
 
-                OrderItem.objects.create(order=order, product=product, quantity=quantity, price=item_price)
+            item_charge = product.product_charge
+            total_charges += item_charge
 
-            order.order_total = total_price + total_charges
-            order.total_charges = total_charges
-            order.save()
+            item_price = product.price * quantity
+            total_price += item_price
 
-            self.send_order_confirmation_email(order, user)
+            OrderItem.objects.create(order=order, product=product, quantity=quantity, price=item_price)
 
-            return Response({'order_id': order.order_ref_id, 'message': 'Your order has been created successfully.', 'amount_paid': order.order_total},
-                             status=status.HTTP_201_CREATED)
-        except Exception as error:
-            return Response({'message': 'Some error Occured'})
+        order.order_total = total_price + total_charges
+        order.total_charges = total_charges
+        order.save()
+
+        self.send_order_confirmation_email(order, user)
+
+        return Response({'order_id': order.order_ref_id, 'message': 'Your order has been created successfully.', 'amount_paid': order.order_total},
+                            status=status.HTTP_201_CREATED)
+        # except Exception as error:
+        #     return Response({'message': 'Some error Occured', "error": error})
 
     def send_order_confirmation_email(self, order, user):
         subject = 'Order Confirmation'
