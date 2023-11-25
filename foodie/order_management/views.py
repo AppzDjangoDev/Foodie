@@ -1,3 +1,4 @@
+from datetime import timezone
 import random
 import string
 from accounts.models import Customer, DeliveryAgent, User
@@ -131,7 +132,7 @@ class OrderRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
                                       'User Email': instance.customer_name.user.email})
             except Exception as error:
                 return Response({'message': 'Some error Occured'})
-        elif Customer.objects.filter(user=request.user).exists():
+        elif Customer.objects.filter(user=request.user).exists(): 
             try:
                 if "otp" in request.data:
                     otp = request.data['otp']
@@ -141,6 +142,19 @@ class OrderRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
                     self.send_order_confirmation_email(instance, request.user, is_delivery_successful=True)
                     return Response({'order_id': instance.order_ref_id, 'message': 'Your order has been Deliveried successfully.',
                                       'User Email': instance.customer_name.user.email})
+                elif "order_status" in request.data:
+                    status_slug = request.data['order_status']
+                    if status_slug == "canceled":
+                        # Check if the order can be canceled (within 30 minutes of creation)
+                        time_difference = timezone.now() - instance.created_at
+                        if time_difference.total_seconds() < 30 * 60 :
+                            # Cancel the order
+                            instance.order_status = "canceled"
+                            instance.save()
+                            return Response({'order_id': instance.order_ref_id, 'message': 'Your order has been canceled successfully.',
+                                            'User Email': instance.customer_name.user.email})
+                        else:
+                            return Response({'message': 'Sorry, you can only cancel the order within 30 minutes of creation.'})
             except Exception as error:
                 return Response({'message': 'Some error Occured'})
 
@@ -170,7 +184,6 @@ class OrderRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
             message = f'Thank you for your order!\n\nOrder ID: {order.order_ref_id}\n Amount Paid: {order.order_total}\nYour order has been delivered!'
         else:
             message = f'Thank you for your order!\n\nOrder ID: {order.order_ref_id}\n Amount Paid: {order.order_total}'
-            
         from_email = 'foodie@example.com'
         to_email = [user.email]
         send_mail(subject, message, from_email, to_email, fail_silently=False)
