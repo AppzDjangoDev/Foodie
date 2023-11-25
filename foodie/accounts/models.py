@@ -20,6 +20,9 @@ class DeliveryAgent(models.Model):
         self.user.groups.add(delivery_agents_group)
         super().save(*args, **kwargs)
 
+    def __str__(self):
+        return self.user.username
+
 class Customer(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
 
@@ -28,5 +31,8 @@ class Customer(models.Model):
         customers_group, created = Group.objects.get_or_create(name='Customers')
         self.user.groups.add(customers_group)
         super().save(*args, **kwargs)
+
+    def __str__(self):
+        return self.user.username
 
 

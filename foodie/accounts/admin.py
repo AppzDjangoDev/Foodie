@@ -1,3 +1,5 @@
 from django.contrib import admin
+from .models import DeliveryAgent, Customer
 
-# Register your models here.
+admin.site.register(DeliveryAgent)
+admin.site.register(Customer)

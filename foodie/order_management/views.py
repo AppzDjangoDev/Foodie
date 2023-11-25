@@ -13,10 +13,12 @@ from django.core.mail import send_mail
 from rest_framework.permissions import IsAdminUser
 
 def generate_order_ref_id():
-    while True:
-        order_ref_gen = ''.join(random.choices(string.digits, k=6))
-        if not Order.objects.filter(order_ref_id=order_ref_gen).exists():
-            return order_ref_gen
+    latest_order = Order.objects.order_by('-order_ref_id').first()
+    if latest_order:
+        order_ref_gen=latest_order.order_ref_id+1
+    else:
+        order_ref_gen=1000
+    return order_ref_gen
 
 def otp_generator():
     while True:
