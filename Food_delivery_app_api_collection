@@ -1,0 +1,717 @@
+{
+	"info": {
+		"_postman_id": "151427bc-61e3-4812-a79e-caca899f2de0",
+		"name": "New Collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "28838154"
+	},
+	"item": [
+		{
+			"name": "New Folder",
+			"item": [
+				{
+					"name": "http://127.0.0.1:8000/delivery_agents/",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-CSRFToken",
+								"value": "w5UMTjQrEXrkPM1hlQFvwq2uCWUcInYLHqxc8snYeRlaI3qMmKnZTs2gmOxQGbtE",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/delivery_agents/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"delivery_agents",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://127.0.0.1:8000/delivery_agents/AgentSmith1/",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "X-CSRFToken",
+								"value": "w5UMTjQrEXrkPM1hlQFvwq2uCWUcInYLHqxc8snYeRlaI3qMmKnZTs2gmOxQGbtE",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"user\": {\r\n        \"first_name\": \"UpdatedFirstName\",\r\n        \"last_name\": \"TESTUPDATED TWO\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/delivery_agents/AgentSmith1/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"delivery_agents",
+								"AgentSmith1",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://127.0.0.1:8000/admin/login/",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-CSRFToken",
+								"value": "w5UMTjQrEXrkPM1hlQFvwq2uCWUcInYLHqxc8snYeRlaI3qMmKnZTs2gmOxQGbtE",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Token ",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "username",
+									"value": "root",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "root",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/admin/login/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"admin",
+								"login",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://127.0.0.1:8000/delivery_agents/AgentSmith/",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "X-CSRFToken",
+								"value": "w5UMTjQrEXrkPM1hlQFvwq2uCWUcInYLHqxc8snYeRlaI3qMmKnZTs2gmOxQGbtE",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://127.0.0.1:8000/delivery_agents/AgentSmith/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"delivery_agents",
+								"AgentSmith",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://127.0.0.1:8000/delivery_agents/",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-CSRFToken",
+								"value": "w5UMTjQrEXrkPM1hlQFvwq2uCWUcInYLHqxc8snYeRlaI3qMmKnZTs2gmOxQGbtE",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Token fada040f7925acb8fa9c2afd5d9df739beb61c1e",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"user\": {\r\n        \"username\": \"testagent\",\r\n        \"email\": \"testagent@yopmail.com\",\r\n        \"first_name\": \"Agent\",\r\n        \"last_name\": \"dfsdfsdf\",\r\n        \"phone_number\" : \"346456546\"\r\n    }\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/delivery_agents/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"delivery_agents",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://127.0.0.1:8000/customers/",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-CSRFToken",
+								"value": "w5UMTjQrEXrkPM1hlQFvwq2uCWUcInYLHqxc8snYeRlaI3qMmKnZTs2gmOxQGbtE",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"user\": {\r\n        \"username\": \"testCust\",\r\n        \"email\": \"smith@yopmail.com\",\r\n        \"first_name\": \"Alice\",\r\n        \"last_name\": \"Smith\",\r\n        \"phone_number\": \"45654675675\"\r\n    }\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/customers/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"customers",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://127.0.0.1:8000/customers/",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-CSRFToken",
+								"value": "w5UMTjQrEXrkPM1hlQFvwq2uCWUcInYLHqxc8snYeRlaI3qMmKnZTs2gmOxQGbtE",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"user\": {\r\n        \"first_name\": \"UpdatedFirstName\",\r\n        \"last_name\": \"TESTUPDATED TWO\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/customers/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"customers",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://127.0.0.1:8000/products/",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/products/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"products",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://127.0.0.1:8000/products/",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-CSRFToken",
+								"value": "w5UMTjQrEXrkPM1hlQFvwq2uCWUcInYLHqxc8snYeRlaI3qMmKnZTs2gmOxQGbtE",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "product_name",
+									"value": "Pizza",
+									"type": "text"
+								},
+								{
+									"key": "price",
+									"value": "150.00",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "Delicious pizza",
+									"type": "text"
+								},
+								{
+									"key": "product_image",
+									"type": "file",
+									"src": "/C:/Users/User/Desktop/CIED/Foodie/foodie/TESTIMAGES/pexels-ash-376464.jpg"
+								},
+								{
+									"key": "product_charge",
+									"value": "30.0",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/products/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"products",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://127.0.0.1:8000/products/OEKDHH/",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "X-CSRFToken",
+								"value": "w5UMTjQrEXrkPM1hlQFvwq2uCWUcInYLHqxc8snYeRlaI3qMmKnZTs2gmOxQGbtE",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "product_name",
+									"value": "Test Product 10 updated",
+									"type": "text"
+								},
+								{
+									"key": "price",
+									"value": "2400.00",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "description",
+									"value": "the industry's standard dummy text ever since the 1500s, when an unknown",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "product_image",
+									"type": "file",
+									"src": [],
+									"disabled": true
+								},
+								{
+									"key": "product_charge",
+									"value": "60.0",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/products/OEKDHH/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"products",
+								"OEKDHH",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://127.0.0.1:8000/login/",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-CSRFToken",
+								"value": "iC6jqcGC9rf2mjDme31ViBIOpZs444eSzkoiklqT6b3q0WD2PhjXr6oNoswtApYL",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "email",
+									"value": "testagent@yopmail.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "SkUUfEUbxe",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/login/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"login",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://127.0.0.1:8000/orders/",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-CSRFToken",
+								"value": "w5UMTjQrEXrkPM1hlQFvwq2uCWUcInYLHqxc8snYeRlaI3qMmKnZTs2gmOxQGbtE",
+								"type": "text"
+							},
+							{
+								"warning": "This is a duplicate header and will be overridden by the Authorization header generated by Postman.",
+								"key": "Authorization",
+								"value": "Token 0e01f0370ebaad3fb6a4214f0c8d80b38f725feb",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"product_items\": [\r\n    {\r\n      \"product_code\": \"TTBWQF\",\r\n      \"quantity\": 4\r\n    }\r\n  ],\r\n  \"payment_mode\": \"credit_card\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/orders/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"orders",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://127.0.0.1:8000/orders/329765/",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "X-CSRFToken",
+								"value": "w5UMTjQrEXrkPM1hlQFvwq2uCWUcInYLHqxc8snYeRlaI3qMmKnZTs2gmOxQGbtE",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Token fada040f7925acb8fa9c2afd5d9df739beb61c1e",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"delivery_agent\" : \"testagent\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/orders/329765/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"orders",
+								"329765",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://127.0.0.1:8000/orders/329765/",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "X-CSRFToken",
+								"value": "w5UMTjQrEXrkPM1hlQFvwq2uCWUcInYLHqxc8snYeRlaI3qMmKnZTs2gmOxQGbtE",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Token 0e01f0370ebaad3fb6a4214f0c8d80b38f725feb",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"order_status\" : \"canceled\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/orders/329765/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"orders",
+								"329765",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://127.0.0.1:8000/login/",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-CSRFToken",
+								"value": "iC6jqcGC9rf2mjDme31ViBIOpZs444eSzkoiklqT6b3q0WD2PhjXr6oNoswtApYL",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "email",
+									"value": "smith@yopmail.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "QFSXN32ChX",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/login/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"login",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://127.0.0.1:8000/orders/329765/",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "X-CSRFToken",
+								"value": "w5UMTjQrEXrkPM1hlQFvwq2uCWUcInYLHqxc8snYeRlaI3qMmKnZTs2gmOxQGbtE",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Token 0e01f0370ebaad3fb6a4214f0c8d80b38f725feb",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"order_status\" : \"canceled\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/orders/329765/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"orders",
+								"329765",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
